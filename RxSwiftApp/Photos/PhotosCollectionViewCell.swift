@@ -15,8 +15,10 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     }()
     
     override var reuseIdentifier: String? {
-        return "cell"
+        return PhotosCollectionViewCell.reuseIdentifier
     }
+    
+    // MARK: - Public
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,6 +29,8 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
         setupAutoLayout()
     }
+    
+    // MARK: - Private
     
     private func setupAutoLayout() {
         addSubview(imageView)

@@ -6,11 +6,10 @@
 //
 
 import UIKit
-import SnapKit
 
 class MainContentView: UIView {
-    lazy var imageView: UIImageView = {
-       let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 300))
+    lazy private var imageView: UIImageView = {
+        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 300))
         image.translatesAutoresizingMaskIntoConstraints = false
         image.image = UIImage(systemName: "sun.min")
         image.contentMode = .scaleAspectFit
@@ -18,8 +17,8 @@ class MainContentView: UIView {
         return image
     }()
     
-    lazy var button: UIButton = {
-       let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
+    lazy private var button: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(NavigationItemTitle.applyFilter, for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -29,6 +28,8 @@ class MainContentView: UIView {
         button.isHidden = true
         return button
     }()
+    
+    // MARK: - Public
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,6 +41,8 @@ class MainContentView: UIView {
         setupAutoLayout()
     }
     
+    // MARK: - Private
+    
     private func setupAutoLayout() {
         addSubview(imageView)
         let imageViewConstraints: [NSLayoutConstraint] = [
@@ -47,7 +50,7 @@ class MainContentView: UIView {
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ]
-
+        
         NSLayoutConstraint.activate(imageViewConstraints)
         
         
@@ -57,7 +60,7 @@ class MainContentView: UIView {
             button.centerXAnchor.constraint(equalTo: centerXAnchor),
             button.bottomAnchor.constraint(equalTo: bottomAnchor),
         ]
-
+        
         NSLayoutConstraint.activate(buttonConstraints)
     }
 }

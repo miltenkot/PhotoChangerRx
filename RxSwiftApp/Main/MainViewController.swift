@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 class MainViewController: UIViewController {
     private lazy var contentView: MainContentView = {
@@ -16,21 +15,13 @@ class MainViewController: UIViewController {
         return view
     }()
     
+    // MARK: - Public
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationView()
         setupAutoLayout()
         self.view.backgroundColor = .white
-    }
-    
-    private func setupNavigationView() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = NavigationItemTitle.cameraFilter
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .add,
-            target: self,
-            action: #selector(didPressPlusButton)
-        )
     }
     
     @objc func didPressPlusButton() {
@@ -41,6 +32,18 @@ class MainViewController: UIViewController {
             controller,
             animated: true,
             completion: nil)
+    }
+    
+    // MARK: - Private
+    
+    private func setupNavigationView() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = NavigationItemTitle.cameraFilter
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(didPressPlusButton)
+        )
     }
     
     private func setupAutoLayout() {
@@ -54,7 +57,7 @@ class MainViewController: UIViewController {
                 constant: 40
             )
         ]
-
+        
         NSLayoutConstraint.activate(contentViewConstraints)
     }
     

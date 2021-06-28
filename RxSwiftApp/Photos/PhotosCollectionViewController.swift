@@ -10,14 +10,31 @@ import Photos
 
 class PhotosCollectionViewController: UIViewController {
     private var images = [PHAsset]()
-    private var collectionView: UICollectionView?
+    var collectionView: UICollectionView {
+        contentView.collectionView
+    }
+    
+    lazy var contentView: PhotosCollectionContentView = {
+        let contentView = PhotosCollectionContentView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        return contentView
+    }()
+    
+    // MARK: - Public
     
     override func viewDidLoad() {
         setupNavigationView()
         setupCollectionView()
         populatePhotos()
+        setupAutoLayout()
         
     }
+    
+    @objc func didPressCancelButton() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - Private
     
     private func populatePhotos() {
         PHPhotoLibrary.requestAuthorization { [weak self] status in
@@ -28,11 +45,25 @@ class PhotosCollectionViewController: UIViewController {
                 }
                 self?.images.reverse()
                 DispatchQueue.main.async {
-                    self?.collectionView?.reloadData()
+                    self?.collectionView.reloadData()
                 }
                 
             }
         }
+    }
+    
+    private func setupAutoLayout() {
+        view.addSubview(contentView)
+        
+        let constraits: [NSLayoutConstraint] = [
+            contentView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(constraits)
+        
     }
     
     private func setupNavigationView() {
@@ -45,31 +76,20 @@ class PhotosCollectionViewController: UIViewController {
     }
     
     private func setupCollectionView() {
-        
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: 100, height: 100)
-        
-        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        collectionView?.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        view.addSubview(collectionView ?? UICollectionView())
-        collectionView?.delegate = self
-        collectionView?.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
     }
     
-    @objc func didPressCancelButton() {
-        self.dismiss(animated: true, completion: nil)
-    }
 }
 
 extension PhotosCollectionViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
-                                 numberOfItemsInSection: Int) -> Int {
+                        numberOfItemsInSection: Int) -> Int {
         return self.images.count
     }
 }
@@ -77,7 +97,7 @@ extension PhotosCollectionViewController: UICollectionViewDataSource {
 extension PhotosCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,                                      cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PhotosCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.reuseIdentifier, for: indexPath) as? PhotosCollectionViewCell else {
             fatalError("Unexpected indexPath")
         }
         let asset = self.images[indexPath.row]
