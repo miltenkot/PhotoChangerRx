@@ -25,7 +25,7 @@ class MainViewController: UIViewController {
     }
     
     @objc func didPressPlusButton() {
-        let collectionController = PhotosCollectionViewController()
+        let collectionController = PhotosCollectionViewController(viewModel: PhotosCollectionViewModel())
         let controller = UINavigationController(rootViewController: collectionController)
         controller.modalPresentationStyle = .fullScreen
         self.navigationController?.present(
