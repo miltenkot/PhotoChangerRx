@@ -44,9 +44,7 @@ extension PhotosCollectionViewModel: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,                                      cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.reuseIdentifier, for: indexPath) as? PhotosCollectionViewCell else {
-            fatalError("Unexpected indexPath")
-        }
+        let cell = collectionView.dequeueReusableCell(for: PhotosCollectionViewCell.self, for: indexPath)
         let asset = self.images[indexPath.row]
         let manager = PHImageManager.default()
         

@@ -36,7 +36,7 @@ class PhotosCollectionContentView: UIView {
     // MARK: - Private
     
     private func setupCellIdentifier() {
-        collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.reuseIdentifier)
+        collectionView.register(PhotosCollectionViewCell.self)
     }
     
     private func setupAutoLayout() {
