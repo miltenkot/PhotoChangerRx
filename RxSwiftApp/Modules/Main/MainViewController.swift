@@ -8,20 +8,20 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    private lazy var contentView: MainContentView = {
-        let view = MainContentView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
+    private var contentView: MainContentView {
+        view as! MainContentView
+    }
+    
+    override func loadView() {
+        view = MainContentView()
+        view.backgroundColor = .white
+    }
     
     // MARK: - Public
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationView()
-        setupAutoLayout()
-        self.view.backgroundColor = .white
     }
     
     @objc func didPressPlusButton() {
@@ -45,21 +45,5 @@ class MainViewController: UIViewController {
             action: #selector(didPressPlusButton)
         )
     }
-    
-    private func setupAutoLayout() {
-        self.view.addSubview(contentView)
-        let contentViewConstraints: [NSLayoutConstraint] = [
-            contentView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            contentView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: 40
-            )
-        ]
-        
-        NSLayoutConstraint.activate(contentViewConstraints)
-    }
-    
 }
 

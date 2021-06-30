@@ -20,6 +20,7 @@
 		728FF0C8268C78730042A057 /* UICollectionViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728FF0C7268C78730042A057 /* UICollectionViewTests.swift */; };
 		72913B30268A2B8C0079A4A5 /* UICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72913B2F268A2B8C0079A4A5 /* UICollectionViewCell.swift */; };
 		72913B32268A2CDA0079A4A5 /* PhotosCollectionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72913B31268A2CDA0079A4A5 /* PhotosCollectionContentView.swift */; };
+		72939C02268CAE56008C48C4 /* PhotosCollectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72939C01268CAE56008C48C4 /* PhotosCollectionViewModelTests.swift */; };
 		7293E7432689BC0D0016AFF2 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7293E7422689BC0D0016AFF2 /* PhotosCollectionViewCell.swift */; };
 		729E6CCF268AFFFB00F29617 /* PhotosCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729E6CCE268AFFFB00F29617 /* PhotosCollectionViewModel.swift */; };
 		AF449C89575BC08E75E37AEF /* Pods_RxSwiftApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5574F898E5D7DD1D55AFF7F7 /* Pods_RxSwiftApp.framework */; };
@@ -59,6 +60,7 @@
 		728FF0C7268C78730042A057 /* UICollectionViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewTests.swift; sourceTree = "<group>"; };
 		72913B2F268A2B8C0079A4A5 /* UICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCell.swift; sourceTree = "<group>"; };
 		72913B31268A2CDA0079A4A5 /* PhotosCollectionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionContentView.swift; sourceTree = "<group>"; };
+		72939C01268CAE56008C48C4 /* PhotosCollectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewModelTests.swift; sourceTree = "<group>"; };
 		7293E7422689BC0D0016AFF2 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		729E6CCE268AFFFB00F29617 /* PhotosCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewModel.swift; sourceTree = "<group>"; };
 		77D5DEDBD7171E68C99EC1B7 /* Pods-RxSwiftAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftAppTests.release.xcconfig"; path = "Target Support Files/Pods-RxSwiftAppTests/Pods-RxSwiftAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 		728FF0AC268C6A240042A057 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				72939C09268CBA2D008C48C4 /* Common */,
 				728017E226872E9B00328F62 /* Photos */,
 				728017E126872E8F00328F62 /* Main */,
 				724D1768266F9BD900617241 /* MyPlaygroundBlack.playground */,
@@ -182,6 +185,7 @@
 		728FF0C2268C72B70042A057 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				72939C01268CAE56008C48C4 /* PhotosCollectionViewModelTests.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -193,6 +197,21 @@
 				728FF0C5268C74240042A057 /* UICollectionView.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		72939C09268CBA2D008C48C4 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				72939C11268CBC3A008C48C4 /* AlertBuilder */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		72939C11268CBC3A008C48C4 /* AlertBuilder */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AlertBuilder;
 			sourceTree = "<group>";
 		};
 		729E6CCB268AFC6700F29617 /* View */ = {
@@ -395,6 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72939C02268CAE56008C48C4 /* PhotosCollectionViewModelTests.swift in Sources */,
 				728FF0C8268C78730042A057 /* UICollectionViewTests.swift in Sources */,
 				728FF0C4268C73050042A057 /* UICollectionViewCellTests.swift in Sources */,
 			);

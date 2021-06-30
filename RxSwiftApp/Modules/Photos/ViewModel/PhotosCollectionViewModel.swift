@@ -12,21 +12,34 @@ class PhotosCollectionViewModel: NSObject, UICollectionViewDelegate {
     private var images = [PHAsset]()
     var reloadTableViewClosure: (()->())?
     
-    override init() {
-        super.init()
-    }
-    
     // MARK: - Public
     
     func populatePhotos() {
-        PHPhotoLibrary.requestAuthorization { [weak self] status in
-            if status == .authorized {
-                let assets = PHAsset.fetchAssets(with: .image, options: nil)
-                assets.enumerateObjects { (object, count, stop) in
-                    self?.images.append(object)
-                }
-                self?.images.reverse()
-                self?.reloadTableViewClosure?()
+        let fetch: () -> Void = { [weak self] in
+            let assets = PHAsset.fetchAssets(with: .image, options: nil)
+            assets.enumerateObjects { (object, count, stop) in
+                self?.images.append(object)
+            }
+            self?.images.reverse()
+            self?.reloadTableViewClosure?()
+        }
+        
+        switch PHPhotoLibrary.authorizationStatus() {
+        case .authorized:
+            fetch()
+        case .restricted, .notDetermined, .denied, .limited:
+            fatalError("Show alerts")
+        default:
+            fatalError("Show error alerts")
+        }
+    }
+    
+    // MARK: - Private methods
+    
+    private func requestAuthorization(completion: ((PHAuthorizationStatus) -> Void)?) {
+        PHPhotoLibrary.requestAuthorization { authorizationStatus in
+            DispatchQueue.main.async {
+                completion?(authorizationStatus)
             }
         }
     }
@@ -59,3 +72,5 @@ extension PhotosCollectionViewModel: UICollectionViewDataSource {
         return cell
     }
 }
+
+
