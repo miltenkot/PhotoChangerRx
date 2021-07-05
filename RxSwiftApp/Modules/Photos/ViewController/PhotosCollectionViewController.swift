@@ -8,7 +8,7 @@
 import UIKit
 
 class PhotosCollectionViewController: UIViewController {
-    private var viewModel: PhotosCollectionViewModel!
+    var viewModel: PhotosCollectionViewModel!
     private var contentView: PhotosCollectionContentView {
         view as! PhotosCollectionContentView
     }
@@ -24,7 +24,7 @@ class PhotosCollectionViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     override func loadView() {
@@ -64,6 +64,12 @@ class PhotosCollectionViewController: UIViewController {
                 self?.collectionView.reloadData()
             }
         }
+        
+        viewModel.onDissmis = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
     }
+    
+    
 }
 

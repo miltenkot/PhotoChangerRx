@@ -8,10 +8,10 @@
 import UIKit
 
 class MainContentView: UIView {
-    lazy private var imageView: UIImageView = {
+    
+    lazy var imageView: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 300))
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(systemName: "sun.min")
         image.contentMode = .scaleAspectFit
         
         return image

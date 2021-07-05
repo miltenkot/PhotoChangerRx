@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Photos
 
 class MainViewController: UIViewController {
+    var viewModel: MainViewModel!
+    
     private var contentView: MainContentView {
         view as! MainContentView
     }
@@ -19,9 +22,19 @@ class MainViewController: UIViewController {
     
     // MARK: - Public
     
+    init(viewModel: MainViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationView()
+        bindData()
     }
     
     @objc func didPressPlusButton() {
@@ -44,6 +57,11 @@ class MainViewController: UIViewController {
             target: self,
             action: #selector(didPressPlusButton)
         )
+    }
+    
+    
+    private func bindData() {
+       
     }
 }
 

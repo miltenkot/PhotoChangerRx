@@ -11,6 +11,7 @@ import Photos
 class PhotosCollectionViewModel: NSObject, UICollectionViewDelegate {
     private var images = [PHAsset]()
     var reloadTableViewClosure: (()->())?
+    var onDissmis: (() -> Void)?
     
     // MARK: - Public
     
@@ -33,21 +34,33 @@ class PhotosCollectionViewModel: NSObject, UICollectionViewDelegate {
             fatalError("Show error alerts")
         }
     }
-    
-    // MARK: - Private methods
-    
-    private func requestAuthorization(completion: ((PHAuthorizationStatus) -> Void)?) {
-        PHPhotoLibrary.requestAuthorization { authorizationStatus in
-            DispatchQueue.main.async {
-                completion?(authorizationStatus)
-            }
-        }
-    }
 }
 
 extension PhotosCollectionViewModel: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedAsset = self.images[indexPath.row]
+        PHImageManager.default().requestImage(for: selectedAsset,
+                                              targetSize: CGSize(width: 300,
+                                                                 height: 300),
+                                              contentMode: .aspectFit,
+                                              options: nil) { [weak self] image, info in
+            guard let info = info else {
+                return
+            }
+            
+            let isDegradedImage = info["PHImageResultIsDegradedKey"] as! Bool
+            
+            if !isDegradedImage {
+                if let image = image {
+                    self?.onDissmis?()
+                }
+            }
+            
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView,

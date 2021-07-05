@@ -6,8 +6,14 @@
 //
 
 import XCTest
+@testable import RxSwiftApp
 
 class PhotosCollectionViewModelTests: XCTestCase {
 
-
+    func testPhotosReverseInPHArray() {
+        let model = PhotosCollectionViewModel()
+        
+        model.populatePhotos()
+        
+    }
 }

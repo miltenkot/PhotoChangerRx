@@ -15,7 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 13, *) {
         } else {
             window = UIWindow()
-            window?.rootViewController = MainViewController()
+            let viewModel = MainViewModel()
+            window?.rootViewController = MainViewController(viewModel: viewModel)
             window?.makeKeyAndVisible()
             
             return true
