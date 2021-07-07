@@ -11,6 +11,7 @@ import RxSwift
 
 class MainViewController: UIViewController {
     var viewModel: MainViewModel!
+    var filterService =  FilterService(context: CIContext())
     
     private var contentView: MainContentView {
         view as! MainContentView
@@ -28,6 +29,7 @@ class MainViewController: UIViewController {
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -44,10 +46,23 @@ class MainViewController: UIViewController {
         let controller = PhotosCollectionViewController(viewModel: viewModel)
         controller.viewModel.selectedPhoto.subscribe(onNext: { [weak self] image in
             if let image = image {
-                self?.contentView.imageView.image = image
+                DispatchQueue.main.async {
+                    self?.updateUI(with: image)
+                }
             }
         }).disposed(by: disposeBag)
         self.navigationController?.show(controller, sender: self)
+    }
+    
+    @objc func didPressFilterButton() {
+        guard let sourceImage = self.contentView.imageView.image else {
+            return
+        }
+        filterService.applyFilter(to: sourceImage).subscribe(onNext: { filteredImage in
+            DispatchQueue.main.async {
+                self.contentView.imageView.image = filteredImage
+            }
+        }).disposed(by: disposeBag)
     }
     
     // MARK: - Private
@@ -60,6 +75,12 @@ class MainViewController: UIViewController {
             target: self,
             action: #selector(didPressPlusButton)
         )
+    }
+    
+    private func updateUI(with image: UIImage) {
+        self.contentView.imageView.image = image
+        self.contentView.button.isHidden = false
+        self.contentView.button.addTarget(self, action: #selector(didPressFilterButton), for: .touchUpInside)
     }
 }
 

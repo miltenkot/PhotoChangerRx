@@ -17,7 +17,7 @@ class MainContentView: UIView {
         return image
     }()
     
-    lazy private var button: UIButton = {
+    lazy var button: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(NavigationItemTitle.applyFilter, for: .normal)
@@ -57,7 +57,7 @@ class MainContentView: UIView {
         let buttonConstraints: [NSLayoutConstraint] = [
             button.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 40),
             button.centerXAnchor.constraint(equalTo: centerXAnchor),
-            button.bottomAnchor.constraint(equalTo: bottomAnchor),
+            button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
         ]
         
         NSLayoutConstraint.activate(buttonConstraints)
