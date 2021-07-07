@@ -7,11 +7,17 @@
 
 import UIKit
 import Photos
+import RxSwift
 
 class PhotosCollectionViewModel: NSObject, UICollectionViewDelegate {
     private var images = [PHAsset]()
     var reloadTableViewClosure: (()->())?
     var onDissmis: (() -> Void)?
+    
+    private let selectedSubjectPhoto = PublishSubject<UIImage?>()
+    var selectedPhoto: Observable<UIImage?> {
+        return selectedSubjectPhoto.asObservable()
+    }
     
     // MARK: - Public
     
@@ -56,6 +62,7 @@ extension PhotosCollectionViewModel: UICollectionViewDataSource {
             
             if !isDegradedImage {
                 if let image = image {
+                    self?.selectedSubjectPhoto.onNext(image)
                     self?.onDissmis?()
                 }
             }

@@ -7,6 +7,7 @@
 
 import UIKit
 import Photos
+import RxSwift
 
 class MainViewController: UIViewController {
     var viewModel: MainViewModel!
@@ -14,6 +15,8 @@ class MainViewController: UIViewController {
     private var contentView: MainContentView {
         view as! MainContentView
     }
+    
+    let disposeBag = DisposeBag()
     
     override func loadView() {
         view = MainContentView()
@@ -34,17 +37,17 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationView()
-        bindData()
     }
     
     @objc func didPressPlusButton() {
-        let collectionController = PhotosCollectionViewController(viewModel: PhotosCollectionViewModel())
-        let controller = UINavigationController(rootViewController: collectionController)
-        controller.modalPresentationStyle = .fullScreen
-        self.navigationController?.present(
-            controller,
-            animated: true,
-            completion: nil)
+        let viewModel = PhotosCollectionViewModel()
+        let controller = PhotosCollectionViewController(viewModel: viewModel)
+        controller.viewModel.selectedPhoto.subscribe(onNext: { [weak self] image in
+            if let image = image {
+                self?.contentView.imageView.image = image
+            }
+        }).disposed(by: disposeBag)
+        self.navigationController?.show(controller, sender: self)
     }
     
     // MARK: - Private
@@ -57,11 +60,6 @@ class MainViewController: UIViewController {
             target: self,
             action: #selector(didPressPlusButton)
         )
-    }
-    
-    
-    private func bindData() {
-       
     }
 }
 

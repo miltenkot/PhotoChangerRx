@@ -39,7 +39,7 @@ class PhotosCollectionViewController: UIViewController {
     }
     
     @objc func didPressCancelButton() {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Private
@@ -66,7 +66,7 @@ class PhotosCollectionViewController: UIViewController {
         }
         
         viewModel.onDissmis = { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
+            self?.navigationController?.popViewController(animated: true)
         }
     }
     

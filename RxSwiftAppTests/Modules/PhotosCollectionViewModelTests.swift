@@ -14,6 +14,5 @@ class PhotosCollectionViewModelTests: XCTestCase {
         let model = PhotosCollectionViewModel()
         
         model.populatePhotos()
-        
     }
 }
