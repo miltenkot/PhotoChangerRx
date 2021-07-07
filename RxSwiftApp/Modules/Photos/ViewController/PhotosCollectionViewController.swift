@@ -69,7 +69,5 @@ class PhotosCollectionViewController: UIViewController {
             self?.navigationController?.popViewController(animated: true)
         }
     }
-    
-    
 }
 

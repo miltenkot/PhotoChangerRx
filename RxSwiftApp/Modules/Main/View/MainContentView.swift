@@ -47,12 +47,11 @@ class MainContentView: UIView {
         addSubview(imageView)
         let imageViewConstraints: [NSLayoutConstraint] = [
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 150),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ]
         
         NSLayoutConstraint.activate(imageViewConstraints)
-        
         
         addSubview(button)
         let buttonConstraints: [NSLayoutConstraint] = [
